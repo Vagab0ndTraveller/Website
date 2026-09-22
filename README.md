@@ -1,2 +1,2 @@
 # Website
-Eski Köşe Websiresinin kodları
+Eski Köşe Web sitesinin kodları
