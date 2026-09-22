@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>Eski Köşe - Çengelköy</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --wood-dark: #2c1d18;
+    --wood-light: #4e3629;
+    --amber-glow: #e09f3e;
+    --terracotta: #b85c38;
+    --olive: #6e7650;
+    --parchment: #f9f5ec;
+    --parchment-gradient: linear-gradient(135deg, rgba(255, 250, 239, 0.88), rgba(244, 231, 211, 0.76), rgba(255, 247, 226, 0.86));
+  }
+
+  body {
+    background: #241812 url("eski-kose-mekan.JPG") center / cover fixed no-repeat;
+    background-attachment: fixed;
+    color: #2b241e;
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 40px 20px;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    isolation: isolate;
+  }
+
+  .side-nav {
+    position: fixed;
+    top: 24px;
+    left: 24px;
+    z-index: 5;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 10px;
+    background: rgba(44, 29, 24, 0.92);
+    border: 1px solid var(--amber-glow);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+  }
+
+  .side-button {
+    border: 1px solid rgba(224, 159, 62, 0.55);
+    padding: 12px 14px;
+    background: transparent;
+    color: #fff7e8;
+    cursor: pointer;
+    font: 600 11px 'Montserrat', sans-serif;
+    letter-spacing: 0.7px;
+    text-transform: uppercase;
+  }
+
+  .side-button:hover,
+  .side-button.active {
+    background: linear-gradient(135deg, var(--terracotta), var(--amber-glow));
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(120deg, rgba(28, 16, 11, 0.58), rgba(109, 73, 43, 0.18), rgba(20, 13, 9, 0.48));
+    pointer-events: none;
+  }
+
+  .menu-container {
+    width: 100%;
+    max-width: 980px;
+    background: var(--parchment-gradient);
+    backdrop-filter: blur(2px);
+    border: 3px solid #3d2b21;
+    outline: 2px solid var(--amber-glow);
+    outline-offset: -6px;
+    padding: 45px 50px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.6), inset 0 0 40px rgba(224, 159, 62, 0.16);
+    position: relative;
+    border-radius: 4px;
+  }
+
+  .site-view[hidden] {
+    display: none;
+  }
+
+  .home-content {
+    max-width: 760px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .venue-photo-frame {
+    margin: 12px auto 26px;
+    padding: 10px;
+    background: #34231c;
+    border: 2px solid var(--amber-glow);
+    box-shadow: 0 14px 28px rgba(44, 29, 24, 0.3), inset 0 0 0 4px rgba(224, 159, 62, 0.22);
+  }
+
+  .venue-photo {
+    display: block;
+    width: 100%;
+    max-height: 560px;
+    object-fit: cover;
+    border: 1px solid rgba(255, 247, 226, 0.6);
+  }
+
+  .home-content h3,
+  .contact-content h3 {
+    margin: 0 0 12px;
+    color: var(--wood-dark);
+    font: 600 28px 'Playfair Display', serif;
+  }
+
+  .home-content p,
+  .contact-content p {
+    line-height: 1.7;
+    color: #5a4a3f;
+  }
+
+  .location-box,
+  .contact-content {
+    margin-top: 24px;
+    padding: 22px;
+    border: 1px solid rgba(184, 92, 56, 0.45);
+    background: rgba(255, 250, 239, 0.48);
+  }
+
+  .location-box a,
+  .contact-content a {
+    color: var(--terracotta);
+    font-weight: 600;
+  }
+
+  .map-frame {
+    width: 100%;
+    height: 240px;
+    margin-top: 16px;
+    border: 0;
+  }
+
+  .contact-list {
+    display: grid;
+    gap: 12px;
+    margin: 18px 0 0;
+  }
+
+  .social-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+  }
+
+  .social-link svg {
+    width: 20px;
+    height: 20px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+  }
+
+  .header {
+    text-align: center;
+    margin-bottom: 35px;
+    border-bottom: 2px solid transparent;
+    border-image: linear-gradient(90deg, var(--terracotta), var(--amber-glow), var(--olive), var(--terracotta)) 1;
+    padding-bottom: 20px;
+    position: relative;
+  }
+
+  /* Başlıkta Renk Geçişi Efekti (Gradient Text) */
+  .header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 42px;
+    letter-spacing: 6px;
+    margin: 0 0 5px 0;
+    background: linear-gradient(90deg, var(--wood-dark), var(--terracotta), var(--amber-glow), var(--olive), var(--wood-dark));
+    background-size: 250% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: titleGlow 7s ease-in-out infinite;
+  }
+
+  @keyframes titleGlow {
+    0%, 100% { background-position: 0% 50%; filter: brightness(1); }
+    50% { background-position: 100% 50%; filter: brightness(1.16); }
+  }
+
+  .header h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    margin: 0 0 10px 0;
+    color: var(--amber-glow);
+    font-weight: 500;
+  }
+
+  .header p {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 16px;
+    margin: 0;
+    color: #5a4a3f;
+  }
+
+  .menu-grid {
+    display: flex;
+    gap: 45px;
+  }
+
+  .category-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 0 0 28px;
+    padding: 14px;
+    background: rgba(72, 45, 31, 0.08);
+    border: 1px solid rgba(184, 92, 56, 0.35);
+    border-radius: 4px;
+  }
+
+  .category-button {
+    border: 1px solid var(--terracotta);
+    border-radius: 3px;
+    padding: 10px 14px;
+    background: rgba(255, 250, 239, 0.7);
+    color: var(--wood-dark);
+    cursor: pointer;
+    font: 600 11px 'Montserrat', sans-serif;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease;
+  }
+
+  .category-button:hover,
+  .category-button.active {
+    background: linear-gradient(135deg, var(--terracotta), var(--amber-glow));
+    color: #fffaf0;
+    transform: translateY(-2px);
+  }
+
+  .category-pages {
+    min-height: 220px;
+  }
+
+  .category-page {
+    animation: categoryReveal 0.35s ease both;
+  }
+
+  .category-page[hidden] {
+    display: none;
+  }
+
+  .category-page .section-title {
+    margin-top: 0;
+  }
+
+  @keyframes categoryReveal {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .column {
+    flex: 1;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    letter-spacing: 1.5px;
+    margin: 28px 0 14px 0;
+    color: var(--wood-dark);
+    text-transform: uppercase;
+    border-bottom: 1.5px solid transparent;
+    border-image: linear-gradient(90deg, var(--terracotta), var(--amber-glow), transparent) 1;
+    padding-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  /* Simgeler için stil ve renk geçişli ikon kutusu */
+  .section-title svg {
+    width: 22px;
+    height: 22px;
+    fill: url(#menuGrad);
+    flex-shrink: 0;
+  }
+
+  .item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    align-items: baseline;
+  }
+
+  .item-name {
+    font-weight: 500;
+    font-size: 13px;
+    flex-grow: 1;
+    padding-right: 10px;
+    color: #2b241e;
+  }
+
+  .item-name span.desc {
+    display: block;
+    font-size: 10.5px;
+    color: #6a5a4d;
+    font-weight: 300;
+    margin-top: 2px;
+    line-height: 1.35;
+  }
+
+  .dots {
+    flex-grow: 1;
+    border-bottom: 1px dotted #b8a594;
+    margin: 0 6px;
+    position: relative;
+    top: -4px;
+  }
+
+  .price {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 14.5px;
+    color: #3d2b21;
+    white-space: nowrap;
+    transition: color 0.3s ease;
+  }
+
+  .item:hover .price {
+    color: var(--terracotta);
+  }
+
+  .footer {
+    text-align: center;
+    margin-top: 35px;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 16px;
+    border-top: 2px solid transparent;
+    border-image: linear-gradient(90deg, var(--olive), var(--amber-glow), var(--terracotta)) 1;
+    padding-top: 15px;
+    background: linear-gradient(90deg, transparent, rgba(224, 159, 62, 0.15), transparent);
+    color: var(--wood-dark);
+  }
+
+  @media print {
+    body { padding: 0; background: #fff; }
+    .menu-container { border: 2px solid #000; box-shadow: none; outline: none; width: 100%; max-width: 100%; }
+  }
+
+  @media (max-width: 720px) {
+    body { padding: 18px 10px; }
+    .menu-container { padding: 88px 22px 30px; }
+    .side-nav {
+      top: 10px;
+      left: 10px;
+      right: 10px;
+      flex-direction: row;
+    }
+    .side-button { flex: 1; padding: 10px 6px; }
+    .menu-grid { display: block; }
+    .category-nav { gap: 8px; padding: 10px; }
+    .category-button { flex: 1 1 calc(50% - 8px); padding: 10px 8px; }
+    .header h1 { font-size: 34px; letter-spacing: 4px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- SVG Renk Geçişleri Tanımı -->
+<svg style="width:0;height:0;position:absolute;" aria-hidden="true">
+  <linearGradient id="amberGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+    <stop offset="0%" stop-color="#b87333" />
+    <stop offset="100%" stop-color="#e09f3e" />
+  </linearGradient>
+  <linearGradient id="menuGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+    <stop offset="0%" stop-color="#b85c38" />
+    <stop offset="50%" stop-color="#e09f3e" />
+    <stop offset="100%" stop-color="#6e7650" />
+  </linearGradient>
+</svg>
+
+<nav class="side-nav" aria-label="Ana navigasyon">
+  <button class="side-button active" type="button" data-view="homeView">Ana Sayfa</button>
+  <button class="side-button" type="button" data-view="menuView">Menü</button>
+  <button class="side-button" type="button" data-view="contactView">İletişim</button>
+</nav>
+
+<div class="menu-container">
+  <div class="header">
+    <h1>ESKİ KÖŞE</h1>
+    <h2>Çengelköy</h2>
+    <p>Kahve Bahane, Güzel Sohbetler Şahane...</p>
+  </div>
+
+  <section id="homeView" class="site-view home-content">
+    <div class="venue-photo-frame">
+      <img class="venue-photo" src="eski-kose-mekan.JPG" alt="Eski Köşe Çengelköy işletme görünümü">
+    </div>
+    <h3>Çengelköy'ün eski ruhunda güzel sohbetler</h3>
+    <p>Eski Köşe, tarihi atmosferi, kahvesi ve samimi sohbetleriyle günün her saatinde keyifli bir mola için sizi bekliyor.</p>
+    <div class="location-box">
+      <strong>Konum</strong>
+      <p>Çengelköy, Çengelköy Hamam Arkası Sk. No:13-1, 34680 Üsküdar/İstanbul</p>
+      <a href="https://www.google.com/maps/place//data=!4m2!3m1!1s0x14cac934e71bd87b:0x43508a0186b831a?sa=X&ved=1t:8290&ictx=111" target="_blank" rel="noopener">Google Maps'te Aç</a>
+      <iframe class="map-frame" title="Eski Köşe Çengelköy haritası" src="https://www.google.com/maps?q=Eski%20K%C3%B6%C5%9Fe%20%C3%87engelky%20%C3%9Csk%C3%BCdar&output=embed" loading="lazy"></iframe>
+    </div>
+  </section>
+
+  <section id="menuView" class="site-view" hidden>
+  <div class="menu-grid">
+    <!-- SOL SÜTUN -->
+    <div class="column">
+      
+      <!-- Soğuk İçecekler -->
+      <div class="section-title">
+        <svg viewBox="0 0 24 24"><path d="M7 2h10v2H7V2m2 4h6v2H9V6m-2 4h10v10c0 1.1-.9 2-2 2H9c-1.1 0-2-.9-2-2V10m2 2v8h6v-8H9z"/></svg>
+        Soğuk İçecekler
+      </div>
+      <div class="item"><div class="item-name">Coca Cola (Klasik, Light, Zero)</div><div class="dots"></div><div class="price">₺120</div></div>
+      <div class="item"><div class="item-name">Fanta</div><div class="dots"></div><div class="price">₺120</div></div>
+      <div class="item"><div class="item-name">Sprite</div><div class="dots"></div><div class="price">₺120</div></div>
+      <div class="item"><div class="item-name">Cappy</div><div class="dots"></div><div class="price">₺120</div></div>
+      <div class="item"><div class="item-name">Fuse Tea (Limon, Şeftali, Karpuz, Mango)</div><div class="dots"></div><div class="price">₺120</div></div>
+      <div class="item"><div class="item-name">Meyveli Gazoz</div><div class="dots"></div><div class="price">₺110</div></div>
+      <div class="item"><div class="item-name">Soda</div><div class="dots"></div><div class="price">₺70</div></div>
+      <div class="item"><div class="item-name">Sıkma Limonlu Soda</div><div class="dots"></div><div class="price">₺90</div></div>
+      <div class="item"><div class="item-name">Ayran</div><div class="dots"></div><div class="price">₺80</div></div>
+      <div class="item"><div class="item-name">Su</div><div class="dots"></div><div class="price">₺30</div></div>
+      <div class="item"><div class="item-name">Limonata</div><div class="dots"></div><div class="price">₺150</div></div>
+      <div class="item"><div class="item-name">Taze Sıkma Portakal Suyu</div><div class="dots"></div><div class="price">₺180</div></div>
+      <div class="item"><div class="item-name">Milkshake</div><div class="dots"></div><div class="price">₺250</div></div>
+      <div class="item"><div class="item-name">Frozen</div><div class="dots"></div><div class="price">₺250</div></div>
+      <div class="item"><div class="item-name">Churchill</div><div class="dots"></div><div class="price">₺100</div></div>
+
+      <!-- Kahveler -->
+      <div class="section-title">
+        <svg viewBox="0 0 24 24"><path d="M2 21h18v-2H2M20 8h-2V5h2m0-2H4v10a4 4 0 0 0 4 4h6a4 4 0 0 0 4-4v-3h2a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2m0 5h-2V5h2z"/></svg>
+        Kahveler
+      </div>
+      <div class="item"><div class="item-name">Americano</div><div class="dots"></div><div class="price">₺200</div></div>
+      <div class="item"><div class="item-name">Iced Americano</div><div class="dots"></div><div class="price">₺220</div></div>
+      <div class="item"><div class="item-name">Latte</div><div class="dots"></div><div class="price">₺230</div></div>
+      <div class="item"><div class="item-name">Iced Latte</div><div class="dots"></div><div class="price">₺250</div></div>
+      <div class="item"><div class="item-name">Mocha</div><div class="dots"></div><div class="price">₺260</div></div>
+      <div class="item"><div class="item-name">Iced Mocha</div><div class="dots"></div><div class="price">₺280</div></div>
+      <div class="item"><div class="item-name">Espresso</div><div class="dots"></div><div class="price">₺150</div></div>
+      <div class="item"><div class="item-name">Macchiato</div><div class="dots"></div><div class="price">₺170</div></div>
+      <div class="item"><div class="item-name">Cappuccino</div><div class="dots"></div><div class="price">₺230</div></div>
+      <div class="item"><div class="item-name">Flat White</div><div class="dots"></div><div class="price">₺230</div></div>
+      <div class="item"><div class="item-name">Türk Kahvesi (Sade ve Damla Sakızlı)</div><div class="dots"></div><div class="price">₺120</div></div>
+      <div class="item"><div class="item-name">Filtre Kahve</div><div class="dots"></div><div class="price">₺200</div></div>
+      <div class="item"><div class="item-name">Sıcak Çikolata (Sütlü, Beyaz, Fındıklı)</div><div class="dots"></div><div class="price">₺220</div></div>
+      <div class="item"><div class="item-name">Salep</div><div class="dots"></div><div class="price">₺220</div></div>
+
+      <!-- Çaylar -->
+      <div class="section-title">
+        <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v2c0 1.66 1.34 3 3 3h1v1c0 2.21 1.79 4 4 4h2c2.21 0 4-1.79 4-4v-1h1c1.66 0 3-1.34 3-3V5c0-1.1-.9-2-2-2m0 5h-1V5h1v3M5 5h14v2H5V5m12 6c0 1.1-.9 2-2 2h-6c-1.1 0-2-.9-2-2v-1h10v1M4 19h16v2H4z"/></svg>
+        Çaylar
+      </div>
+      <div class="item"><div class="item-name">Demleme Çay</div><div class="dots"></div><div class="price">₺50</div></div>
+      <div class="item"><div class="item-name">Porselen Fincan Çay</div><div class="dots"></div><div class="price">₺80</div></div>
+      <div class="item"><div class="item-name">French Çay <span class="desc">Tarçın, Elma, Yaseminli Yeşil Çay, Kuşburnu, Adaçayı, Papatya, Ihlamur</span></div><div class="dots"></div><div class="price">₺100</div></div>
+      <div class="item"><div class="item-name">Bitki Çayları</div><div class="dots"></div><div class="price">₺100</div></div>
+      <div class="item"><div class="item-name">Sıcak Ballı Süt</div><div class="dots"></div><div class="price">₺100</div></div>
+    </div>
+
+    <!-- SAĞ SÜTUN -->
+    <div class="column">
+      
+      <!-- Kahvaltılar -->
+      <div class="section-title">
+        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2m0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8m1-13h-2v6h6v-2h-4z"/></svg>
+        Kahvaltılar
+      </div>
+      <div class="item"><div class="item-name">Serpme Kahvaltı (2 Kişilik)<span class="desc">Pişi (6 adet), sigara böreği (4 adet), patates, menemen, gözleme, peynir çeşitleri, zeytin, söğüş tabağı, bal, kaymak, reçel, Nutella ve sınırsız çay ile.</span></div><div class="dots"></div><div class="price">₺1.500</div></div>
+      <div class="item"><div class="item-name">Kahvaltı Tabağı<span class="desc">Peynir çeşitleri, zeytin, bal, kaymak, Nutella, reçel, yeşillik, domates, salatalık, sahanda yumurta ve bir bardak çay eşliğinde.</span></div><div class="dots"></div><div class="price">₺550</div></div>
+
+      <!-- Yumurtalar & Omletler -->
+      <div class="section-title">
+        <svg viewBox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9 0 3.87 2.47 7.18 5.91 8.43-.15-.65-.25-1.43-.25-2.28 0-4.42 3.58-8 8-8 .85 0 1.63.1 2.28.25C20.18 7.47 16.87 5 12 5z"/></svg>
+        Yumurtalar & Omletler
+      </div>
+      <div class="item"><div class="item-name">Sade Omlet</div><div class="dots"></div><div class="price">₺240</div></div>
+      <div class="item"><div class="item-name">Peynirli Omlet</div><div class="dots"></div><div class="price">₺280</div></div>
+      <div class="item"><div class="item-name">Kaşarlı Omlet</div><div class="dots"></div><div class="price">₺280</div></div>
+      <div class="item"><div class="item-name">Sebzeli / Karışık Omlet</div><div class="dots"></div><div class="price">₺320</div></div>
+      <div class="item"><div class="item-name">Sahanda Yumurta</div><div class="dots"></div><div class="price">₺250</div></div>
+      <div class="item"><div class="item-name">Kavurmalı Yumurta</div><div class="dots"></div><div class="price">₺400</div></div>
+      <div class="item"><div class="item-name">Havuçlu Yumurta</div><div class="dots"></div><div class="price">₺300</div></div>
+      <div class="item"><div class="item-name">Mıhlama</div><div class="dots"></div><div class="price">₺350</div></div>
+      <div class="item"><div class="item-name">Menemen</div><div class="dots"></div><div class="price">₺300</div></div>
+
+      <!-- Tostlar -->
+      <div class="section-title">
+        <svg viewBox="0 0 24 24"><path d="M4 19h16v2H4m16-10H4a2 2 0 0 0-2 2v5h20v-5a2 2 0 0 0-2-2M4 7h16v2H4V7m2-4h12v2H6V3z"/></svg>
+        Tostlar
+      </div>
+      <div class="item"><div class="item-name">Kaşarlı Tost</div><div class="dots"></div><div class="price">₺200</div></div>
+      <div class="item"><div class="item-name">Sucuklu Tost</div><div class="dots"></div><div class="price">₺250</div></div>
+      <div class="item"><div class="item-name">Sucuk Kaşarlı Tost</div><div class="dots"></div><div class="price">₺300</div></div>
+      <div class="item"><div class="item-name">Beyaz Peynirli Tost</div><div class="dots"></div><div class="price">₺200</div></div>
+      <div class="item"><div class="item-name">Kaşarlı Bazlama Tost</div><div class="dots"></div><div class="price">₺300</div></div>
+      <div class="item"><div class="item-name">Sucuk Kaşarlı Bazlama Tost</div><div class="dots"></div><div class="price">₺350</div></div>
+
+      <!-- Gözlemeler -->
+      <div class="section-title">
+        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2m0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>
+        Gözlemeler
+      </div>
+      <div class="item"><div class="item-name">Peynirli Gözleme</div><div class="dots"></div><div class="price">₺250</div></div>
+      <div class="item"><div class="item-name">Patatesli Gözleme</div><div class="dots"></div><div class="price">₺250</div></div>
+      <div class="item"><div class="item-name">Kıymalı Gözleme</div><div class="dots"></div><div class="price">₺300</div></div>
+
+      <!-- Atıştırmalıklar -->
+      <div class="section-title">
+        <svg viewBox="0 0 24 24"><path d="M11 9H9V2H7v7H5V2H3v7c0 2.21 1.79 4 4 4v9h2v-9c2.21 0 4-1.79 4-4V2h-2v7m7-7v12h2v10h2V2h-4z"/></svg>
+        Atıştırmalıklar
+      </div>
+      <div class="item"><div class="item-name">Pişi Tabağı <span class="desc">6 adet pişi, yeşillik, domates, 1 dilim peynir, zeytin ile</span></div><div class="dots"></div><div class="price">₺300</div></div>
+      <div class="item"><div class="item-name">Hamburger + Patates</div><div class="dots"></div><div class="price">₺400</div></div>
+      <div class="item"><div class="item-name">Peynir Tabağı</div><div class="dots"></div><div class="price">₺350</div></div>
+    </div>
+  </div>
+  </section>
+
+  <section id="contactView" class="site-view contact-content" hidden>
+    <h3>İletişim</h3>
+    <p>Rezervasyon ve bilgi için bize ulaşabilirsiniz.</p>
+    <div class="contact-list">
+      <a href="tel:+905323576903">+90 532 357 69 03</a>
+      <a href="tel:+905363184616">+90 536 318 46 16</a>
+      <a class="social-link" href="https://www.instagram.com/eskikosecengelkoy/" target="_blank" rel="noopener" aria-label="Eski Köşe Instagram hesabını aç">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <rect x="3" y="3" width="18" height="18" rx="5"></rect>
+          <circle cx="12" cy="12" r="4"></circle>
+          <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"></circle>
+        </svg>
+        Instagram: @eskikosecengelkoy
+      </a>
+    </div>
+    <p>Adres: Çengelköy, Çengelköy Hamam Arkası Sk. No:13-1, 34680 Üsküdar/İstanbul</p>
+  </section>
+
+  <div class="footer">
+    Eski Köşe Çengelköy • Kahve Bahane, Güzel Sohbetler Şahane...
+  </div>
+</div>
+<script>
+  const priceSymbol = String.fromCodePoint(0x20BA);
+  document.querySelectorAll('.price').forEach((price) => {
+    const amount = price.textContent.replace(/^₺\s*/, '').trim();
+    price.textContent = `${amount} ${priceSymbol}`;
+  });
+
+  const menuGrid = document.querySelector('.menu-grid');
+  const sections = [...menuGrid.querySelectorAll('.section-title')];
+  const categoryNav = document.createElement('nav');
+  const categoryPages = document.createElement('div');
+  categoryNav.className = 'category-nav';
+  categoryPages.className = 'category-pages';
+
+  sections.forEach((sectionTitle, index) => {
+    const categoryPage = document.createElement('section');
+    const categoryButton = document.createElement('button');
+    const categoryName = sectionTitle.textContent.trim();
+
+    categoryPage.className = 'category-page';
+    categoryPage.hidden = index !== 0;
+    categoryButton.className = 'category-button';
+    categoryButton.type = 'button';
+    categoryButton.textContent = categoryName;
+    categoryButton.setAttribute('aria-label', `${categoryName} kategorisini aç`);
+    categoryButton.addEventListener('click', () => {
+      document.querySelectorAll('.category-page').forEach((page) => {
+        page.hidden = page !== categoryPage;
+      });
+      document.querySelectorAll('.category-button').forEach((button) => {
+        button.classList.toggle('active', button === categoryButton);
+      });
+    });
+
+    const categoryItems = [];
+    let item = sectionTitle.nextElementSibling;
+    while (item && !item.classList.contains('section-title')) {
+      categoryItems.push(item);
+      item = item.nextElementSibling;
+    }
+    categoryPage.append(sectionTitle, ...categoryItems);
+
+    categoryNav.append(categoryButton);
+    categoryPages.append(categoryPage);
+  });
+
+  categoryNav.querySelector('.category-button').classList.add('active');
+  menuGrid.replaceWith(categoryNav, categoryPages);
+
+  const siteViews = document.querySelectorAll('.site-view');
+  document.querySelectorAll('.side-button').forEach((sideButton) => {
+    sideButton.addEventListener('click', () => {
+      const targetView = document.getElementById(sideButton.dataset.view);
+      siteViews.forEach((view) => {
+        view.hidden = view !== targetView;
+      });
+      document.querySelectorAll('.side-button').forEach((button) => {
+        button.classList.toggle('active', button === sideButton);
+      });
+    });
+  });
+</script>
+</body>
+</html>
