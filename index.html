@@ -5,6 +5,16 @@
 <title>Eski Köşe - Çengelköy</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Rye&display=swap" rel="stylesheet">
 <style>
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    overflow-x: hidden;
+  }
+
   :root {
     --wood-dark: #2c1d18;
     --wood-light: #4e3629;
@@ -44,12 +54,13 @@
 
   .side-button {
     border: 1px solid rgba(224, 159, 62, 0.55);
-    min-width: 150px;
-    padding: 14px 20px;
+    min-width: 180px;
+    min-height: 72px;
+    padding: 16px 24px;
     background: transparent;
     color: #fff7e8;
     cursor: pointer;
-    font: 400 16px 'Rye', serif;
+    font: 400 20px 'Rye', serif;
     letter-spacing: 0.4px;
     text-transform: uppercase;
   }
@@ -303,25 +314,28 @@
   }
 
   .item {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(40px, 1fr) auto;
     margin-bottom: 12px;
     padding: 13px 0;
-    align-items: baseline;
+    align-items: start;
   }
 
   .item-media {
-    width: 72px;
-    height: 58px;
-    flex: 0 0 72px;
-    margin-right: 13px;
+    grid-column: 1 / -1;
+    grid-row: 2;
+    width: 100%;
+    height: 360px;
+    margin: 12px 0 0;
     border: 2px solid rgba(224, 159, 62, 0.55);
     border-radius: 4px;
-    object-fit: cover;
+    object-fit: contain;
     background: #34231c;
   }
 
   .item-name {
+    grid-column: 1;
+    grid-row: 1;
     font-weight: 500;
     font-size: 16px;
     flex-grow: 1;
@@ -339,6 +353,8 @@
   }
 
   .dots {
+    grid-column: 2;
+    grid-row: 1;
     flex-grow: 1;
     border-bottom: 1px dotted #b8a594;
     margin: 0 6px;
@@ -347,6 +363,8 @@
   }
 
   .price {
+    grid-column: 3;
+    grid-row: 1;
     font-family: 'Montserrat', sans-serif;
     font-weight: 600;
     font-size: 16px;
@@ -377,7 +395,7 @@
     .menu-container { border: 2px solid #000; box-shadow: none; outline: none; width: 100%; max-width: 100%; }
   }
 
-  @media (max-width: 720px) {
+  @media (max-width: 900px) {
     body { padding: 104px 10px 18px; }
     .menu-container {
       width: 100%;
@@ -390,9 +408,9 @@
     .side-button {
       flex: 1;
       min-width: 0;
-      min-height: 68px;
-      padding: 14px 4px;
-      font-size: 16px;
+      min-height: 82px;
+      padding: 16px 4px;
+      font-size: 22px;
     }
     .category-nav {
       flex-direction: column;
@@ -401,9 +419,9 @@
     }
     .category-button {
       width: 100%;
-      min-height: 64px;
-      padding: 14px 10px;
-      font-size: 16px;
+      min-height: 74px;
+      padding: 16px 10px;
+      font-size: 20px;
     }
     .item {
       display: grid;
@@ -416,7 +434,7 @@
       grid-column: 1 / -1;
       grid-row: 2;
       width: 100%;
-      height: 260px;
+      height: 360px;
       flex-basis: auto;
       margin-right: 0;
       margin-top: 2px;
