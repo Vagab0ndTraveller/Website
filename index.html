@@ -16,8 +16,7 @@
   }
 
   body {
-    background: #241812 url("eski-kose-mekan.JPG") center / cover fixed no-repeat;
-    background-attachment: fixed;
+    background: #241812;
     color: #2b241e;
     font-family: 'Montserrat', sans-serif;
     margin: 0;
@@ -65,7 +64,7 @@
     position: fixed;
     inset: 0;
     z-index: -1;
-    background: linear-gradient(120deg, rgba(28, 16, 11, 0.58), rgba(109, 73, 43, 0.18), rgba(20, 13, 9, 0.48));
+    background: radial-gradient(circle at top, rgba(224, 159, 62, 0.1), transparent 42%), linear-gradient(135deg, #241812, #3b261d 52%, #1c120f);
     pointer-events: none;
   }
 
@@ -94,6 +93,9 @@
   }
 
   .venue-photo-frame {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
     margin: 12px auto 26px;
     padding: 10px;
     background: #34231c;
@@ -102,11 +104,19 @@
   }
 
   .venue-photo {
+    position: absolute;
+    inset: 10px;
     display: block;
-    width: 100%;
-    max-height: 560px;
-    object-fit: cover;
+    width: calc(100% - 20px);
+    height: calc(100% - 20px);
+    object-fit: contain;
     border: 1px solid rgba(255, 247, 226, 0.6);
+    opacity: 0;
+    transition: opacity 0.8s ease;
+  }
+
+  .venue-photo.active {
+    opacity: 1;
   }
 
   .home-content h3,
@@ -300,6 +310,17 @@
     align-items: baseline;
   }
 
+  .item-media {
+    width: 72px;
+    height: 58px;
+    flex: 0 0 72px;
+    margin-right: 13px;
+    border: 2px solid rgba(224, 159, 62, 0.55);
+    border-radius: 4px;
+    object-fit: cover;
+    background: #34231c;
+  }
+
   .item-name {
     font-weight: 500;
     font-size: 16px;
@@ -389,6 +410,12 @@
       gap: 12px;
       border-bottom: 1px solid rgba(184, 92, 56, 0.22);
     }
+    .item-media {
+      width: 82px;
+      height: 68px;
+      flex-basis: 82px;
+      margin-right: 0;
+    }
     .item-name { line-height: 1.45; }
     .dots { display: none; }
     .price { padding-top: 2px; }
@@ -426,8 +453,11 @@
   </div>
 
   <section id="homeView" class="site-view home-content">
-    <div class="venue-photo-frame">
-      <img class="venue-photo" src="eski-kose-mekan.JPG" alt="Eski Köşe Çengelköy işletme görünümü">
+    <div class="venue-photo-frame" aria-label="Eski Köşe mekan fotoğrafları">
+      <img class="venue-photo active" src="eski-kose-mekan.jpeg" alt="Eski Köşe Çengelköy işletme görünümü">
+      <img class="venue-photo" src="Eski Köşe - Çengelköy.2.jpeg" alt="Eski Köşe iç mekan görünümü">
+      <img class="venue-photo" src="Eski Köşe - Çengelköy.3.jpeg" alt="Eski Köşe menü tasarımı">
+      <img class="venue-photo" src="Eski Köşe - Çengelköy.4.jpeg" alt="Eski Köşe mekan görünümü">
     </div>
     <h3>Çengelköy'ün eski ruhunda güzel sohbetler</h3>
     <p>Eski Köşe, tarihi atmosferi, kahvesi ve samimi sohbetleriyle günün her saatinde keyifli bir mola için sizi bekliyor.</p>
@@ -550,6 +580,7 @@
         Atıştırmalıklar
       </div>
       <div class="item"><div class="item-name">Pişi Tabağı <span class="desc">6 adet pişi, yeşillik, domates, 1 dilim peynir, zeytin ile</span></div><div class="dots"></div><div class="price">₺300</div></div>
+      <div class="item"><div class="item-name">Söğüş Tabağı</div><div class="dots"></div><div class="price">₺250</div></div>
       <div class="item"><div class="item-name">Hamburger + Patates</div><div class="dots"></div><div class="price">₺400</div></div>
       <div class="item"><div class="item-name">Peynir Tabağı</div><div class="dots"></div><div class="price">₺350</div></div>
     </div>
@@ -584,8 +615,34 @@
     price.textContent = `${amount} ${priceSymbol}`;
   });
 
+  const venuePhotos = [...document.querySelectorAll('.venue-photo')];
+  let activePhotoIndex = 0;
+  setInterval(() => {
+    venuePhotos[activePhotoIndex].classList.remove('active');
+    activePhotoIndex = (activePhotoIndex + 1) % venuePhotos.length;
+    venuePhotos[activePhotoIndex].classList.add('active');
+  }, 5000);
+
   const menuGrid = document.querySelector('.menu-grid');
   const sections = [...menuGrid.querySelectorAll('.section-title')];
+  const categoryOrder = ['Kahvaltılar', 'Yumurtalar & Omletler', 'Gözlemeler', 'Atıştırmalıklar', 'Tostlar'];
+  const categoryImages = {};
+  const itemImages = {
+    Limonata: 'Soğuk İçecekler.jpeg',
+    Latte: 'Kahveler.jpeg',
+    'Sade Omlet': 'Omlet.jpeg',
+    'Peynirli Gözleme': 'Gözleme.jpeg',
+    'Pişi Tabağı': 'Pişi Tabağı.jpeg',
+    'Söğüş Tabağı': 'Söğüş Tabağı.jpeg',
+    'Peynir Tabağı': 'Peynir Tabağı.jpeg',
+    'Serpme Kahvaltı': 'Serpme Kahvaltı.jpeg'
+  };
+  const getCategoryRank = (sectionTitle) => {
+    const categoryName = sectionTitle.textContent.trim();
+    const rank = categoryOrder.indexOf(categoryName);
+    return rank === -1 ? categoryOrder.length : rank;
+  };
+  sections.sort((firstSection, secondSection) => getCategoryRank(firstSection) - getCategoryRank(secondSection));
   const categoryNav = document.createElement('nav');
   const categoryPages = document.createElement('div');
   categoryNav.className = 'category-nav';
@@ -617,6 +674,18 @@
       categoryItems.push(item);
       item = item.nextElementSibling;
     }
+    categoryItems.forEach((menuItem) => {
+      const itemName = menuItem.querySelector('.item-name')?.textContent.trim() || '';
+      const itemImage = Object.entries(itemImages).find(([name]) => itemName.startsWith(name))?.[1] || categoryImages[categoryName];
+      if (!itemImage) {
+        return;
+      }
+      const image = document.createElement('img');
+      image.className = 'item-media';
+      image.src = itemImage || categoryImages[categoryName];
+      image.alt = `${itemName} görseli`;
+      menuItem.insertBefore(image, menuItem.firstElementChild);
+    });
     categoryPage.append(sectionTitle, ...categoryItems);
 
     categoryNav.append(categoryButton);
