@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Eski Köşe - Çengelköy</title>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Rye&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Serif+Display:ital@0;1&family=Kalam:wght@400;700&display=swap" rel="stylesheet">
 <style>
   *,
   *::before,
@@ -28,7 +28,7 @@
   body {
     background: #241812;
     color: #2b241e;
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Cormorant Garamond', serif;
     margin: 0;
     padding: 94px 20px 40px;
     display: flex;
@@ -60,7 +60,7 @@
     background: transparent;
     color: #fff7e8;
     cursor: pointer;
-    font: 400 20px 'Rye', serif;
+    font: 700 21px 'Kalam', cursive;
     letter-spacing: 0.4px;
     text-transform: uppercase;
   }
@@ -195,24 +195,15 @@
 
   /* Başlıkta Renk Geçişi Efekti (Gradient Text) */
   .header h1 {
-    font-family: 'Playfair Display', serif;
+    font-family: 'DM Serif Display', serif;
     font-size: 42px;
     letter-spacing: 6px;
     margin: 0 0 5px 0;
-    background: linear-gradient(90deg, var(--wood-dark), var(--terracotta), var(--amber-glow), var(--olive), var(--wood-dark));
-    background-size: 250% auto;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: titleGlow 7s ease-in-out infinite;
-  }
-
-  @keyframes titleGlow {
-    0%, 100% { background-position: 0% 50%; filter: brightness(1); }
-    50% { background-position: 100% 50%; filter: brightness(1.16); }
+    color: var(--wood-dark);
   }
 
   .header h2 {
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Kalam', cursive;
     font-size: 13px;
     letter-spacing: 6px;
     text-transform: uppercase;
@@ -222,7 +213,7 @@
   }
 
   .header p {
-    font-family: 'Playfair Display', serif;
+    font-family: 'DM Serif Display', serif;
     font-style: italic;
     font-size: 16px;
     margin: 0;
@@ -252,7 +243,7 @@
     background: rgba(255, 250, 239, 0.7);
     color: var(--wood-dark);
     cursor: pointer;
-    font: 600 15px 'Montserrat', sans-serif;
+    font: 700 17px 'Kalam', cursive;
     letter-spacing: 0.6px;
     text-transform: uppercase;
     transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease;
@@ -291,7 +282,7 @@
   }
 
   .section-title {
-    font-family: 'Playfair Display', serif;
+    font-family: 'DM Serif Display', serif;
     font-size: 21px;
     letter-spacing: 1.5px;
     margin: 30px 0 16px 0;
@@ -336,8 +327,8 @@
   .item-name {
     grid-column: 1;
     grid-row: 1;
-    font-weight: 500;
-    font-size: 16px;
+    font-weight: 600;
+    font-size: 18px;
     flex-grow: 1;
     padding-right: 10px;
     color: #2b241e;
@@ -345,11 +336,13 @@
 
   .item-name span.desc {
     display: block;
-    font-size: 12px;
+    font-family: 'Kalam', cursive;
+    font-size: 14px;
     color: #6a5a4d;
-    font-weight: 300;
-    margin-top: 2px;
-    line-height: 1.35;
+    font-weight: 400;
+    letter-spacing: 0.1px;
+    margin-top: 4px;
+    line-height: 1.45;
   }
 
   .dots {
@@ -365,9 +358,9 @@
   .price {
     grid-column: 3;
     grid-row: 1;
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Kalam', cursive;
     font-weight: 600;
-    font-size: 16px;
+    font-size: 18px;
     color: #3d2b21;
     white-space: nowrap;
     transition: color 0.3s ease;
@@ -380,7 +373,7 @@
   .footer {
     text-align: center;
     margin-top: 35px;
-    font-family: 'Playfair Display', serif;
+    font-family: 'Kalam', cursive;
     font-style: italic;
     font-size: 16px;
     border-top: 2px solid transparent;
@@ -658,16 +651,54 @@
   const menuGrid = document.querySelector('.menu-grid');
   const sections = [...menuGrid.querySelectorAll('.section-title')];
   const categoryOrder = ['Kahvaltılar', 'Yumurtalar & Omletler', 'Gözlemeler', 'Atıştırmalıklar', 'Tostlar'];
-  const categoryImages = {};
   const itemImages = {
-    Limonata: 'Soğuk İçecekler.jpeg',
-    Latte: 'Kahveler.jpeg',
-    'Sade Omlet': 'Omlet.jpeg',
-    'Peynirli Gözleme': 'Gözleme.jpeg',
-    'Pişi Tabağı': 'Pişi Tabağı.jpeg',
-    'Söğüş Tabağı': 'Söğüş Tabağı.jpeg',
-    'Peynir Tabağı': 'Peynir Tabağı.jpeg',
-    'Serpme Kahvaltı': 'Serpme Kahvaltı.jpeg'
+    'Serpme Kahvaltı': 'Serpme Köy Kahvaltısı.jpeg',
+    'Kahvaltı Tabağı': 'Kahvaltı Tabağı.jfif',
+    Limonata: 'Limonata.png',
+    'Taze Sıkma Portakal Suyu': 'Taze Sıkma Portakal Suyu.png',
+    Milkshake: 'Milkshake.png',
+    Frozen: 'Frozen.png',
+    'Demleme Çay': 'Demleme Çay.png',
+    'Porselen Fincan Çay': 'Porselen Fincan Çay.png',
+    'French Çay': 'French Çay.png',
+    'Bitki Çayları': 'Bitki Çayları.png',
+    'Sıcak Ballı Süt': 'Sıcak Ballı Süt.png',
+    'Sade Omlet': 'Sade Omlet.jpg',
+    'Peynirli Omlet': 'Peynirli Omlet.jpg',
+    'Kaşarlı Omlet': 'Kaşarlı Omlet.jpg',
+    'Sebzeli / Karışık Omlet': 'Sebzeli Karışık Omlet.jpg',
+    'Sahanda Yumurta': 'Sahanda Yumurta.jpg',
+    'Kavurmalı Yumurta': 'Kavurmalı Yumurta.jpg',
+    'Havuçlu Yumurta': 'Havuçlu Yumurta.jpg',
+    Mıhlama: 'Mıhlama.jpg',
+    Menemen: 'Menemen.jpg',
+    Americano: 'Americano.png',
+    'Iced Americano': 'Iced Americano.png',
+    Latte: 'Latte.png',
+    'Iced Latte': 'Iced Latte.png',
+    Mocha: 'Mocha.png',
+    'Iced Mocha': 'Iced Mocha.png',
+    Espresso: 'Espresso.png',
+    Macchiato: 'Macchiato.png',
+    Cappuccino: 'Cappuccino.png',
+    'Flat White': 'Flat White.png',
+    'Türk Kahvesi': 'Türk Kahvesi.png',
+    'Filtre Kahve': 'Filtre Kahve.png',
+    'Sıcak Çikolata': 'Sıcak Çikolata.png',
+    Salep: 'Salep.png',
+    'Kaşarlı Tost': 'Kaşarlı Tost.jpg',
+    'Sucuklu Tost': 'Sucuklu Tost.png',
+    'Sucuk Kaşarlı Tost': 'Sucuk Kaşarlı Tost.png',
+    'Beyaz Peynirli Tost': 'Beyaz Peynirli Tost.jpg',
+    'Kaşarlı Bazlama Tost': 'Kaşarlı Bazlama Tost.jpg',
+    'Sucuk Kaşarlı Bazlama Tost': 'Sucuk Kaşarlı Bazlama Tost.jpg',
+    'Peynirli Gözleme': 'Peynirli Gözleme.jpg',
+    'Patatesli Gözleme': 'Patatesli Gözleme.jpg',
+    'Kıymalı Gözleme': 'Kıymalı Gözleme.jpg',
+    'Pişi Tabağı': 'Pişi Tabağı.png',
+    'Söğüş Tabağı': 'Söğüş Tabağı.jpg',
+    'Hamburger + Patates': 'Hamburger + Patates.jpg',
+    'Peynir Tabağı': 'Peynir Tabağı.1.jpg'
   };
   const getCategoryRank = (sectionTitle) => {
     const categoryName = sectionTitle.textContent.trim();
@@ -708,13 +739,13 @@
     }
     categoryItems.forEach((menuItem) => {
       const itemName = menuItem.querySelector('.item-name')?.textContent.trim() || '';
-      const itemImage = Object.entries(itemImages).find(([name]) => itemName.startsWith(name))?.[1] || categoryImages[categoryName];
+      const itemImage = Object.entries(itemImages).find(([name]) => itemName.startsWith(name))?.[1];
       if (!itemImage) {
         return;
       }
       const image = document.createElement('img');
       image.className = 'item-media';
-      image.src = itemImage || categoryImages[categoryName];
+      image.src = itemImage;
       image.alt = `${itemName} görseli`;
       menuItem.insertBefore(image, menuItem.firstElementChild);
     });
